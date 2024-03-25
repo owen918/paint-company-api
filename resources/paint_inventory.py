@@ -22,7 +22,7 @@ class PaintInventoryList(MethodView):
         '''
         paint_inventory = PaintInventoryModel(**paint_inventory_data)
         paint_status = PaintStatusModel.query.get(paint_inventory_data["color"])
-        if paint_status.status != "out_of_stock":
+        if paint_status and paint_status.status != "out_of_stock":
             return abort(500, message="There is a inventory record related to this paint, try modifying inventory record.")
         else:
             if paint_inventory_data["quantity"] <= 0:
